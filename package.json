@@ -1,7 +1,7 @@
 {
   "name": "adh",
   "version": "1.3.8",
-  "description": "",
+  "description": "Apium docker helper: Useful and short commands for working with Docker.",
   "main": "index.js",
   "bin": {
     "adh": "dist/src/index.js"
@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/apiumhub/adh.git"
   },
-  "author": "Apium Development team <info@apiumtech.com>",
+  "author": "Apium Development team <info@apiumhub.com>",
   "license": "ISC",
   "scripts": {
     "tsc": "tsc",
