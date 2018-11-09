@@ -7,10 +7,10 @@ export default function commandLoader(program, evalAction) {
     // Loop though command files and initialize each one
     fs
         .readdirSync(loadPath)
-        .filter(filename => (/\.ts$/.test(filename) && !/\.d.ts$/.test(filename) && filename !== 'commandLoader.ts'))
+        .filter((filename: string) => filename.indexOf('cmd_') > -1 && filename.indexOf('ts') === -1)
         .map( filename => {
             // Require command
-            const complexCommand = require(path.join(loadPath, filename));
+            const complexCommand = require(path.join(loadPath, filename)).default;
             // Initialize command
             complexCommand(program, evalAction);
         });
