@@ -1,8 +1,9 @@
 import inquirer from "inquirer";
 import R from "ramda";
 import {container, listContainers, stopContainer} from "../../adapters/docker";
-import boxen from "boxen";
 import Listr from "listr";
+import {yellow} from "../../adapters/colors";
+import {printBoxedYellow} from "../../adapters/box";
 
 let run = process => new Listr(process, {concurrent: true}).run();
 
@@ -15,10 +16,10 @@ let stopAllContainers = function (containers) {
         );
     run(containersToStop);
 };
-export default (program, evalAction, chalk) => {
+export default (program, evalAction) => {
     program
         .command('stop')
-        .description(chalk.yellow("Stop containers"))
+        .description(yellow("Stop containers"))
         .option('-a, --all', 'Stop all containers')
         .action((options) => {
             listContainers()
@@ -26,7 +27,7 @@ export default (program, evalAction, chalk) => {
                 .subscribe(containers => {
 
                     if (R.isEmpty(containers)) {
-                        console.log(boxen('No containers running', {padding: 1, borderColor: "yellow"}));
+                        printBoxedYellow('No containers running');
                         return;
                     }
 

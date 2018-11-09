@@ -1,9 +1,10 @@
-import boxen from "boxen";
+import {yellow} from "../../adapters/colors";
+import {printBoxedBlue} from "../../adapters/box";
 
-export default (program, evalAction, chalk) => {
+export default (program, evalAction) => {
     program
         .command('nginx')
-        .description(chalk.yellow("Run nginx with a volume in the current directory "))
+        .description(yellow("Run nginx with a volume in the current directory "))
         .option('-f, --force', 'Force remove nginx container with same name')
         .option('-p, --port <port>', 'Host port', parseInt)
         .option('-n, --name <name>', 'Container name', 'adh-nginx')
@@ -23,10 +24,7 @@ export default (program, evalAction, chalk) => {
             if (options.force) commands.unshift('docker rm -f ' + name + ' || true');
 
             evalAction({cmd: commands.join('&&')})
-                .then(() => console.log(boxen('Nginx running. (' + name + ':' + port + ')', {
-                    padding: 1,
-                    borderColor: "blue"
-                })));
+                .then(() => printBoxedBlue('Nginx running. (' + name + ':' + port + ')'))
         })
         .on('--help', () => {
             console.log('  Examples:');
