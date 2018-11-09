@@ -6,14 +6,14 @@ const docker = new Docker();
 
 export type Container = Docker.ContainerInfo;
 
-export function container(containerId) {
+function container(containerId) {
     return docker.getContainer(containerId);
 }
 
-export function listContainers(): Observable<Docker.ContainerInfo[]> {
+export function listContainers(): Observable<Container[]> {
     return Rx.Observable.fromPromise(docker.listContainers());
 }
 
-export function stopContainer(container) {
-    return container.stop();
+export function stopContainer(containerId: string): void {
+    container(containerId).stop();
 }

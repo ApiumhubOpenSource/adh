@@ -1,7 +1,7 @@
 import {yellow} from "../../adapters/colors";
 import {printBoxedBlue} from "../../adapters/box";
 
-export default (program, evalAction) => {
+export default (program, runOnShell) => {
     program
         .command('nginx')
         .description(yellow("Run nginx with a volume in the current directory "))
@@ -23,8 +23,7 @@ export default (program, evalAction) => {
 
             if (options.force) commands.unshift('docker rm -f ' + name + ' || true');
 
-            evalAction({cmd: commands.join('&&')})
-                .then(() => printBoxedBlue('Nginx running. (' + name + ':' + port + ')'))
+            runOnShell(commands.join('&&'), () => printBoxedBlue('Nginx running. (' + name + ':' + port + ')'))
         })
         .on('--help', () => {
             console.log('  Examples:');
