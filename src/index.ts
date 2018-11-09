@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 import chalk from "chalk";
-import complexCommands from "./commands/index.js";
-import simpleCommands from "./commands.json";
-import pkg from './package.json';
-import runOnShell from "./action";
+import complexCommands from "./commands/complexCommands/index.js";
+import simpleCommands from "./commands/simpleCommands.json";
+import pkg from '../package.json';
+import runOnShell from "./adapters/runOnShell";
 import boxen from "boxen";
 import program from "commander";
 

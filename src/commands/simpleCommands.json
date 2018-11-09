@@ -15,7 +15,7 @@
   {
     "cli": "remove-containers",
     "alias": "rc",
-    "cmd": "docker ps -aq | awk '{print $1}' | xargs docker rm -f",
+    "cmd": "docker ps -aq | awk '{print $1}' | xargs -I {} --no-run-if-empty docker rm -f {}",
     "description": "Remove all containers"
   },
   {

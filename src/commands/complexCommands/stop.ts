@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
 import R from "ramda";
-import {container, listContainers, stopContainer} from "../lib/docker.js";
+import {container, listContainers, stopContainer} from "../../adapters/docker";
 import boxen from "boxen";
 import Listr from "listr";
 
