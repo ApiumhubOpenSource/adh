@@ -8,12 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/OscarGalindo/adh.git"
+    "url": "https://github.com/apiumhub/adh.git"
   },
-  "author": "Oscar Galindo <oscar.galindo@apiumtech.com>",
+  "author": "Apium Development team <info@apiumtech.com>",
   "license": "ISC",
   "scripts": {
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "tscw": "tsc -w"
   },
   "dependencies": {
     "boxen": "1.0.0",

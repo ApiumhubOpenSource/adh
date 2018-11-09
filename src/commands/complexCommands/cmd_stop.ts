@@ -16,6 +16,7 @@ let stopAllContainers = function (containers) {
         );
     run(containersToStop);
 };
+
 export default (program, evalAction) => {
     program
         .command('stop')
