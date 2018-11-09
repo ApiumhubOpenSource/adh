@@ -16,10 +16,11 @@ export default (program, evalAction) =>
 let run = process => new Listr(process, {concurrent: true}).run();
 
 let stopContainers = function (containers) {
-    run(containers.map((container: Container) => ({
+    let processes = containers.map((container: Container) => ({
         title: 'Stopping ' + container.Names[0],
         task: () => stopContainer(container.Id)
-    })));
+    }));
+    run(processes);
 };
 
 let runCommand = (options) => {
