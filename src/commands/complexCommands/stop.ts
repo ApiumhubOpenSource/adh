@@ -46,7 +46,7 @@ export default (program, evalAction) => {
                             .prompt(tasks)
                             .then(selectedContainers => {
                                 const containersToStop = selectedContainers
-                                    .container
+                                    ['container']
                                     .map(ctr => ({
                                             title: 'Stopping ' + ctr.Names[0],
                                             task: () => stopContainer(container(ctr.Id))
