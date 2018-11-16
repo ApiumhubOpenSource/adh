@@ -4,3 +4,6 @@ dist
 .build
 .dockerignore
 Dockerfile
+Makefile
+adh_stop.gif
+.gitignore

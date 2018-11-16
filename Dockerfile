@@ -1,5 +1,6 @@
 FROM node:6.14
 
+# Docker installation
 RUN apt-get update && \
 	apt-get -y install apt-transport-https \
 		 ca-certificates \
@@ -14,14 +15,20 @@ RUN apt-get update && \
 	apt-get update && \
 	apt-get -y install docker-ce
 
-RUN mkdir -p /test
-WORKDIR /test
+# BASH Automated Testing  System
+RUN git clone https://github.com/sstephenson/bats.git && \
+    cd bats && ./install.sh /usr/local
+
+RUN mkdir -p /adh
+WORKDIR /adh
 
 COPY package.json .
 COPY package-lock.json .
-
 RUN npm install
 
-COPY . .
-
+COPY src ./src
+COPY tsconfig.json .
 RUN npm run tsc
+
+COPY runTest.sh .
+COPY tests.bats .

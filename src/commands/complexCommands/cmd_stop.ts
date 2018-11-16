@@ -15,7 +15,7 @@ export default (program, evalAction) =>
 
 let run = process => new Listr(process, {concurrent: true}).run();
 
-let stopContainers = function (containers) {
+let stopContainers = function (containers: Container[]) {
     let processes = containers.map((container: Container) => ({
         title: 'Stopping ' + container.Names[0],
         task: () => stopContainer(container.Id)
@@ -37,17 +37,16 @@ let runCommand = (options) => {
                         return;
                     }
 
-                    const tasks = [
-                        {
+                    const tasks = [{
                             type: 'checkbox',
-                            name: 'container',
+                            name: 'containers',
                             message: 'Select container/s to stop',
                             choices: containers.map(y => ({name: y.Names[0], value: y}))
                         }];
 
                     inquirer
                         .prompt(tasks)
-                        .then(selectedContainers => stopContainers(selectedContainers['container']));
+                        .then(optionsSelected => stopContainers(optionsSelected['containers']));
 
                 });
 };
