@@ -30,5 +30,8 @@ COPY src ./src
 COPY tsconfig.json .
 RUN npm run tsc
 
-COPY runTest.sh .
-COPY tests.bats .
+RUN ln -s /adh/dist/src/index.js /usr/bin/adh
+RUN chmod 777 /usr/bin/adh
+
+COPY testRunner.sh .
+COPY *.bats ./
