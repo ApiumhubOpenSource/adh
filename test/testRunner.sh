@@ -2,7 +2,7 @@
 set -e
 
 echo "STARTING DOCKER SERVICE..."
-service docker start
+service docker start &>/dev/null
 
 echo "DOCKER SERVICE STARTED"
 

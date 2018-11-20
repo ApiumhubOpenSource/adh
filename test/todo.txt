@@ -1,0 +1,13 @@
+(/)nginx
+(X)nginx [options]
+(/)stop -a
+(X)stop (selecting)
+(/)ps
+(/)psa
+(/)remove-containers
+(X)remove-images
+(X)remove-none-images
+(/)remove-exited-containers
+(X)remove-volumes
+(/)kill-containers
+(/)create-local-registry
