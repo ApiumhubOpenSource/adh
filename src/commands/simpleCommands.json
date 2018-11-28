@@ -26,7 +26,7 @@
   },
   {
     "cli": "remove-none-images",
-    "cmd": "docker images | grep \"^<none>\" | awk '{print $3}' | xargs -I {} --no-run-if-empty docker rmi {} || true",
+    "cmd": "docker rmi -f $(docker images --filter 'dangling=true')",
     "description": "Remove none images"
   },
   {
