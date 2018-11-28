@@ -1,7 +1,7 @@
 (/)nginx
 (X)nginx [options]
 (/)stop -a
-(X)stop (selecting)
+(/)stop (selecting)
 (/)ps
 (/)psa
 (/)remove-containers
