@@ -8,6 +8,10 @@
 (X)remove-images
 (/)remove-none-images
 (/)remove-exited-containers
-(X)remove-volumes
+(/)remove-volumes
 (/)kill-containers
 (/)create-local-registry
+
+add:
+	start
+	bash
