@@ -2,12 +2,11 @@
 . ./utils.sh --source-only
 
 setup () {
-	echo "setup"
+	echo "setup --"
+	docker stop $(docker ps -aq) || true
+	docker rm $(docker ps -aq) || true
 	printf "FROM registry:2\nRUN mkdir test\n" > Dockerfile && docker build .
-}
-
-teardown () {
-	echo "teardown"
+	echo "setup end --"
 }
 
 @test "adh remove none images" {

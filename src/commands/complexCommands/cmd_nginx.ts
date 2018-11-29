@@ -28,8 +28,8 @@ export default (program, runOnShell) => {
         .on('--help', () => {
             console.log('  Examples:');
             console.log();
-            console.log('    $ adh nginx -p 8080 -h myNginx -f');
-            console.log('    $ adh nginx -h myOtherNginx');
+            console.log('    $ adh nginx -p 8080 -n myNginx -f');
+            console.log('    $ adh nginx -n myOtherNginx');
             console.log();
         });
 }

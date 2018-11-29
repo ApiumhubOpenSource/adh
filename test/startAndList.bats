@@ -2,14 +2,11 @@
 . ./utils.sh --source-only
 
 setup () {
-	echo "setup"
+	echo "setup --"
 	docker stop $(docker ps -aq) || true
 	docker rm $(docker ps -aq) || true
 #	docker system prune -af
-}
-
-teardown () {
-	echo "teardown"
+	echo "setup end --"
 }
 
 @test "adh ps when no containers up" {

@@ -2,14 +2,11 @@
 . ./utils.sh --source-only
 
 setup () {
-	echo "setup"
+	echo "setup --"
 	docker stop $(docker ps -aq) || true
 	docker rm $(docker ps -aq) || true
 #	docker system prune -af
-}
-
-teardown () {
-	echo "teardown"
+	echo "setup end --"
 }
 
 @test "adh kill-containers stops all the containers" {
@@ -17,6 +14,7 @@ teardown () {
 	run adh ps
 	actual_results
 	[ "${#lines[@]}" = "6" ]
+
 	adh kc
 	run adh ps
 	actual_results
@@ -32,6 +30,7 @@ teardown () {
 	run adh ps
 	actual_results
 	[ "${#lines[@]}" = "6" ]
+
 	adh stop -a
 	run adh ps
 	actual_results

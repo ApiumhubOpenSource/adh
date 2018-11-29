@@ -2,13 +2,10 @@
 . ./utils.sh --source-only
 
 setup () {
-	echo "setup"
+	echo "setup --"
 	docker stop $(docker ps -aq) || true
 	docker rm $(docker ps -aq) || true
-}
-
-teardown () {
-	echo "teardown"
+	echo "setup end --"
 }
 
 @test "adh remove volumes" {
