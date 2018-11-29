@@ -1,4 +1,5 @@
 #!/usr/bin/env bats
+. ./utils.sh --source-only
 
 setup () {
 	echo "setup"
@@ -40,8 +41,8 @@ teardown () {
 	run adh ps
 	[ "$status" -eq 0 ]
 
+	actual_results
 	echo "actual lines 3: " ${lines[3]}
-	echo "actual lines: " ${#lines[@]}
 
 	[[ "${lines[3]}" =~ "local-registry" ]]
 	[ "${#lines[@]}" = "6" ]
@@ -52,8 +53,8 @@ teardown () {
 	run adh ps
 	[ "$status" -eq 0 ]
 
+	actual_results
 	echo "actual lines 3: " ${lines[3]}
-	echo "actual lines: " ${#lines[@]}
 
 	[[ "${lines[3]}" =~ "nginx" ]]
 	[ "${#lines[@]}" = "6" ]

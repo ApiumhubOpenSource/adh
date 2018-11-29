@@ -5,7 +5,7 @@
 (/)ps
 (/)psa
 (/)remove-containers
-(X)remove-images
+(/)remove-images
 (/)remove-none-images
 (/)remove-exited-containers
 (/)remove-volumes

@@ -33,5 +33,5 @@ RUN npm run tsc
 RUN ln -s /adh/dist/src/index.js /usr/bin/adh
 RUN chmod 777 /usr/bin/adh
 
-COPY test/testRunner.sh .
+COPY test/*.sh ./
 COPY test/*.bats ./

@@ -1,4 +1,6 @@
 #!/usr/bin/env bats
+. ./utils.sh --source-only
+
 setup () {
 	echo "setup"
 	docker stop $(docker ps -aq) || true
@@ -13,13 +15,12 @@ teardown () {
 	mkdir /test
 	docker volume create hello
 	run docker volume ls
-	echo "actual output: " ${output}
-	echo "actual lines: " ${#lines[@]}
+	actual_results
 	[ "${#lines[@]}" = "2" ]
 
 	adh remove-volumes
 	run docker volume ls
-	echo "actual output: " ${output}
+	actual_results
 	[ "${#lines[@]}" = "1" ]
 }
 
