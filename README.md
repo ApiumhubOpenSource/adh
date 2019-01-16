@@ -1,4 +1,4 @@
-https://travis-ci.org/ApiumhubOpenSource/adh.svg?branch=master
+[![Build Status](https://travis-ci.org/ApiumhubOpenSource/adh.svg?branch=master)](https://travis-ci.org/ApiumhubOpenSource/adh)
 # ADH: Docker 'Useful Commands' Helper
 
 
