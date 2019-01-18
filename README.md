@@ -62,3 +62,15 @@ $ adh --help
     -a, --all  Stop all containers
 
 <img src="adh_stop.gif" width="500">
+
+
+## Development Usage
+For running all the test:
+```
+$ make test
+```
+
+For running a single test:
+```
+$ make TEST="startAndList" single-test
+```

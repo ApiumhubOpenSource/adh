@@ -92,5 +92,4 @@ setup () {
 	actual_results
 	[ "${#lines[@]}" = "6" ]
 	[[ "${lines[3]}" =~ "nginx" ]]
-
 }
