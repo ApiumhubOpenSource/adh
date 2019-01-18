@@ -12,12 +12,12 @@ setup () {
 @test "adh remove none images" {
 	run docker images --filter 'dangling=true'
 	actual_results
-	[ "${#lines[@]}" != "1" ]
+	assert_there_are_results
 
 	adh remove-none-images
 	run docker images --filter 'dangling=true'
 	actual_results
-	[ "${#lines[@]}" = "1" ]
+	assert_there_are_no_results
 }
 
 @test "adh remove images" {
@@ -25,10 +25,10 @@ setup () {
 	docker pull registry:2
 	run docker images
 	actual_results
-	[ "${#lines[@]}" != "1" ]
+	assert_there_are_results
 
 	adh remove-images
 	run docker images
 	actual_results
-	[ "${#lines[@]}" = "1" ]
+	assert_there_are_no_results
 }

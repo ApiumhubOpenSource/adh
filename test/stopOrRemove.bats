@@ -5,91 +5,90 @@ setup () {
 	echo "setup --"
 	docker stop $(docker ps -aq) || true
 	docker rm $(docker ps -aq) || true
-#	docker system prune -af
 	echo "setup end --"
 }
 
 @test "adh kill-containers stops all the containers" {
 	docker run -d registry:2
-	run adh ps
+	run docker ps
 	actual_results
-	[ "${#lines[@]}" = "6" ]
+	assert_number_of_containers 1
 
 	adh kc
-	run adh ps
+	run docker ps
 	actual_results
-	[ "${#lines[@]}" = "5" ]
+	assert_there_are_no_results
 
-	run adh psa
+	run docker ps -a
 	actual_results
-	[ "${#lines[@]}" = "6" ]
+	assert_number_of_containers 1
 }
 
 @test "adh stop -a stops all the containers" { #TODO: test stop a single container, not all at the same time
 	docker run -d registry:2
-	run adh ps
+	run docker ps
 	actual_results
-	[ "${#lines[@]}" = "6" ]
+	assert_number_of_containers 1
 
 	adh stop -a
-	run adh ps
+	run docker ps
 	actual_results
-	[ "${#lines[@]}" = "5" ]
+	assert_there_are_no_results
 
-	run adh psa
+	run docker ps -a
 	actual_results
-	[ "${#lines[@]}" = "6" ]
+	assert_number_of_containers 1
 }
 
 @test "adh stop selecting an option stops just that container" { #TODO: test stop a single container, not all at the same time
 	docker run -d registry:2
 	docker run -d nginx
-	run adh ps
+	run docker ps
 	actual_results
-	[ "${#lines[@]}" = "7" ]
+	assert_number_of_containers 2
 
 	echo " " | adh stop # this simulates pressing space to select the first option and pressing enter
-	run adh ps
+	run docker ps
 	actual_results
-	[ "${#lines[@]}" = "6" ]
+	assert_number_of_containers 1
 
-	run adh psa
+	run docker ps -a
 	actual_results
-	[ "${#lines[@]}" = "7" ]
+	assert_number_of_containers 2
 }
 
 @test "adh remove-containers removes all the containers started or stopped" {
 	docker run -d registry:2
 	adh stop -a
 	docker run -d nginx
-	run adh ps
+	run docker ps
 	actual_results
-	[ "${#lines[@]}" = "6" ]
-	run adh psa
+	assert_number_of_containers 1
+	run docker ps -a
 	actual_results
-	[ "${#lines[@]}" = "7" ]
+	assert_number_of_containers 2
 	adh rc
-	run adh psa
+	run docker ps -a
 	actual_results
-	[ "${#lines[@]}" = "5" ]
+	assert_there_are_no_results
 }
 
 @test "adh remove-exited-containers removes only stopped containers" {
 	docker run -d registry:2
 	adh stop -a
 	docker run -d nginx
-	run adh ps
+	run docker ps
 	actual_results
-	[ "${#lines[@]}" = "6" ]
-	run adh psa
+	assert_number_of_containers 1
+	run docker ps -a
 	actual_results
-	[ "${#lines[@]}" = "7" ]
+	assert_number_of_containers 2
 	adh remove-exited-containers
-	run adh ps
+	run docker ps
 	actual_results
-	[ "${#lines[@]}" = "6" ]
-	run adh psa
+	assert_number_of_containers 1
+	run docker ps -a
 	actual_results
-	[ "${#lines[@]}" = "6" ]
-	[[ "${lines[3]}" =~ "nginx" ]]
+	assert_number_of_containers 1
+	assert_container_has_regex 1 "nginx"
 }

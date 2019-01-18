@@ -9,11 +9,11 @@ actual_lines() {
 }
 
 actual_containers() {
-	echo "actual # of containers: " $((${#lines[@]} - 5))
+	echo "actual # of containers: " $((${#lines[@]} - 1))
 }
 
 print_container() {
-	echo "actual lines 3: " ${lines[$(($1 + 2))]}
+	echo "container line $(($1)): " ${lines[$(($1))]}
 }
 
 actual_results() {
@@ -22,11 +22,23 @@ actual_results() {
 	actual_containers
 }
 assert_number_of_containers() {
-	[[ "${#lines[@]}" = $(($1 + 5)) ]]
+	[[ "${#lines[@]}" = $(($1 + 1)) ]]
+}
+assert_number_of_results() {
+	[[ "${#lines[@]}" = $(($1 + 1)) ]]
+}
+assert_there_are_results() {
+	[ "${#lines[@]}" != "1" ]
+}
+assert_there_are_no_results() {
+	[ "${#lines[@]}" = "1" ]
 }
 assert_container_has_regex() {
-	[[ "${lines[$(($1 + 2))]}" =~ "$2" ]]
+	[[ "${lines[$1]}" =~ "$2" ]]
 }
 assert_status_ok() {
-	[[ "$status" -eq 0 ]]
+	[ "$status" -eq 0 ]
+}
+assert_status_not_ok() {
+	[ "$status" -eq 1 ]
 }
