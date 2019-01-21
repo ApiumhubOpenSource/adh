@@ -1,9 +1,14 @@
 services:
-  - docker
-
+- docker
 branches:
   only:
-    - master
-
+  - master
 script:
   - make test
+deploy:
+  provider: npm
+  email: dev@apiumhub.com
+  api_key:
+    secure: $ADH_NPM_TOKEN
+  on:
+    repo: ApiumhubOpenSource/adh
