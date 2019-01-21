@@ -1,7 +1,10 @@
-.PHONY: build test bash kill
+.PHONY: build test
 
 test: build
 	docker run --privileged --name adhtest adh:latest bash testRunner.sh
+
+single-test: build
+	docker run --privileged --name adhtest adh:latest bash testRunner.sh ${TEST}.bats
 
 build: kill
 	docker build -t adh:latest .

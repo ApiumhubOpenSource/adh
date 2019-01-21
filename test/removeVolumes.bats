@@ -13,11 +13,11 @@ setup () {
 	docker volume create hello
 	run docker volume ls
 	actual_results
-	[ "${#lines[@]}" = "2" ]
+	assert_number_of_results 1
 
 	adh remove-volumes
 	run docker volume ls
 	actual_results
-	[ "${#lines[@]}" = "1" ]
+	assert_there_are_no_results
 }
 

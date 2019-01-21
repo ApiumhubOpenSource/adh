@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/ApiumhubOpenSource/adh.svg?branch=master)](https://travis-ci.org/ApiumhubOpenSource/adh)
+
 # ADH: Docker 'Useful Commands' Helper
 
 
@@ -62,3 +64,15 @@ $ adh --help
     -a, --all  Stop all containers
 
 <img src="adh_stop.gif" width="500">
+
+
+## Development Usage
+For running all the test:
+```
+$ make test
+```
+
+For running a single test:
+```
+$ make TEST="startAndList" single-test
+```

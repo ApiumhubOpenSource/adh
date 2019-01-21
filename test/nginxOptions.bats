@@ -10,48 +10,54 @@ setup () {
 
 @test "adh nginx -p 9000 should map the port 80 to the 9000" {
 	adh nginx -p 9000
-	run adh psa
+	run docker ps -a
+
 	actual_results
-	echo "line 3: " ${lines[3]}
-	[[ "${lines[3]}" =~ ":9000->80/tcp" ]]
+	print_container 1
+	assert_container_has_regex 1 ":9000->80/tcp"
 }
 
 @test "adh nginx -n this_is_a_test_name should start the container with the name this_is_a_test_name" {
 	adh nginx -n this_is_a_test_name
-	run adh psa
+	run docker ps -a
+
 	actual_results
-	echo "line 3: " ${lines[3]}
-	[[ "${lines[3]}" =~ "this_is_a_test_name" ]]
+	print_container 1
+	assert_container_has_regex 1 "this_is_a_test_name"
 }
 
 @test "adh nginx should not create the new container in case of conflict with names" {
 	adh nginx -n this_is_a_test_name -p 9000
-	run adh psa
+	run docker ps -a
+
 	actual_results
-	echo "line 3: " ${lines[3]}
-	[[ "${lines[3]}" =~ "this_is_a_test_name" ]]
-	[[ "${lines[3]}" =~ ":9000->80/tcp" ]]
+	print_container 1
+	assert_container_has_regex 1 "this_is_a_test_name"
+	assert_container_has_regex 1 ":9000->80/tcp"
 
 	adh nginx -n this_is_a_test_name -p 5555
-	run adh psa
+	run docker ps -a
+
 	actual_results
-	echo "line 3: " ${lines[3]}
-	[[ "${lines[3]}" =~ "this_is_a_test_name" ]]
-	[[ "${lines[3]}" =~ ":9000->80/tcp" ]]
+	print_container 1
+	assert_container_has_regex 1 "this_is_a_test_name"
+	assert_container_has_regex 1 ":9000->80/tcp"
 }
 
 @test "adh nginx -f should remove nginx container with same name in case of conflict" {
 	adh nginx -n this_is_a_test_name -p 9000
-	run adh psa
+	run docker ps -a
+
 	actual_results
-	echo "line 3: " ${lines[3]}
-	[[ "${lines[3]}" =~ "this_is_a_test_name" ]]
-	[[ "${lines[3]}" =~ ":9000->80/tcp" ]]
+	print_container 1
+	assert_container_has_regex 1 "this_is_a_test_name"
+	assert_container_has_regex 1 ":9000->80/tcp"
 
 	adh nginx -n this_is_a_test_name -f -p 5555
-	run adh psa
+	run docker ps -a
+
 	actual_results
-	echo "line 3: " ${lines[3]}
-	[[ "${lines[3]}" =~ "this_is_a_test_name" ]]
-	[[ "${lines[3]}" =~ ":5555->80/tcp" ]]
+	print_container 1
+	assert_container_has_regex 1 "this_is_a_test_name"
+	assert_container_has_regex 1 ":5555->80/tcp"
 }
