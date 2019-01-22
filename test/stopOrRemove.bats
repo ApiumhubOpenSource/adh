@@ -24,7 +24,7 @@ setup () {
 	assert_number_of_containers 1
 }
 
-@test "adh stop -a stops all the containers" { #TODO: test stop a single container, not all at the same time
+@test "adh stop -a stops all the containers" {
 	docker run -d registry:2
 	run docker ps
 	actual_results
@@ -40,7 +40,7 @@ setup () {
 	assert_number_of_containers 1
 }
 
-@test "adh stop selecting an option stops just that container" { #TODO: test stop a single container, not all at the same time
+@test "adh stop selecting an option stops just that container" {
 	docker run -d registry:2
 	docker run -d nginx
 	run docker ps
@@ -55,6 +55,17 @@ setup () {
 	run docker ps -a
 	actual_results
 	assert_number_of_containers 2
+}
+
+@test "adh stop when no containers running shows error" {
+	run docker ps
+	actual_results
+	assert_number_of_containers 0
+
+	run adh stop # this simulates pressing space to select the first option and pressing enter
+	actual_results
+	print_line 3
+	assert_line_has_regex 3 "No containers running"
 }
 
 @test "adh remove-containers removes all the containers started or stopped" {

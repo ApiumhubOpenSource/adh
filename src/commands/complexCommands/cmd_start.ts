@@ -1,52 +1,52 @@
 import inquirer from "inquirer";
 import R from "ramda";
-import {Container, listRunningContainers, stopContainer} from "../../adapters/docker";
+import {Container, listStoppedContainers, startContainer} from "../../adapters/docker";
 import Listr from "listr";
 import {yellow} from "../../adapters/colors";
 import {printBoxedYellow} from "../../adapters/box";
 
 export default (program, evalAction) =>
     program
-        .command('stop')
-        .description(yellow("Stop containers"))
-        .option('-a, --all', 'Stop all containers')
+        .command('start')
+        .description(yellow("Start containers"))
+        .option('-a, --all', 'Start all containers')
         .action(runCommand)
 
 
 let run = process => new Listr(process, {concurrent: true}).run();
 
-let stopContainers = function (containers: Container[]) {
+let startContainers = function (containers: Container[]) {
     let processes = containers.map((container: Container) => ({
-        title: 'Stopping ' + container.Names[0],
-        task: () => stopContainer(container.Id)
+        title: 'Starting ' + container.Names[0],
+        task: () => startContainer(container.Id)
     }));
     run(processes);
 };
 
 let runCommand = (options) => {
-            listRunningContainers()
+            listStoppedContainers()
                 .subscribe((containers: Container[]) => {
 
                     if (R.isEmpty(containers)) {
-                        printBoxedYellow('No containers running');
+                        printBoxedYellow('No stopped containers');
                         return;
                     }
 
                     if (options.all) {
-                        stopContainers(containers);
+                        startContainers(containers);
                         return;
                     }
 
                     const tasks = [{
                             type: 'checkbox',
                             name: 'containers',
-                            message: 'Select container/s to stop',
+                            message: 'Select container/s to start',
                             choices: containers.map(y => ({name: y.Names[0], value: y}))
                         }];
 
                     inquirer
                         .prompt(tasks)
-                        .then(optionsSelected => stopContainers(optionsSelected['containers']));
+                        .then(optionsSelected => startContainers(optionsSelected['containers']));
 
                 });
 };
