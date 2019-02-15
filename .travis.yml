@@ -11,4 +11,4 @@ deploy:
   api_key:
     secure: $ADH_NPM_TOKEN
   on:
-    repo: ApiumhubOpenSource/adh
+    repo: apiumhub-developer/adh
