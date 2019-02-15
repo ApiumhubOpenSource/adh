@@ -62,9 +62,15 @@ $ adh --help
 
     -h, --help  output usage information
     -a, --all  Stop all containers
+    
+##  adh start [options]
 
-<img src="adh_stop.gif" width="500">
+  Start containers
 
+  Options:
+
+    -h, --help  output usage information
+    -a, --all  Start all stopped containers
 
 ## Development Usage
 For running all the test:
