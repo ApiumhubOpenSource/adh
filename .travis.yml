@@ -10,5 +10,3 @@ deploy:
   email: dev@apiumhub.com
   api_key:
     secure: $ADH_NPM_TOKEN
-  on:
-    repo: apiumhub-developer/adh
