@@ -5,9 +5,11 @@ services:
 branches:
   only:
   - master
+before_script:
+  - npm install -g typescript
+  - npm run tsc
 script:
   - make test
-  - npm run tsc
 after_success:
   - npm pack
 deploy:
