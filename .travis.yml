@@ -1,3 +1,5 @@
+language: nodejs
+
 services:
 - docker
 branches:
@@ -6,6 +8,8 @@ branches:
 script:
   - make test
   - npm run tsc
+after_success:
+  - npm pack
 deploy:
   provider: npm
   email: dev@apiumhub.com
