@@ -4,7 +4,7 @@
   "description": "Apium docker helper: Useful and short commands for working with Docker.",
   "main": "index.js",
   "bin": {
-    "adh": "dist/src/index.js"
+    "adh": "src/index.js"
   },
   "repository": {
     "type": "git",

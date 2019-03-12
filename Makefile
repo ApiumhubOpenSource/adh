@@ -2,8 +2,6 @@
 
 test-and-copy-dist: test
 	docker cp adhtest:/adh/dist .
-	ls -lah
-	ls -lah dist
 
 test: build
 	docker run --privileged --name adhtest adh:latest bash testRunner.sh
