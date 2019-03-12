@@ -5,6 +5,7 @@ branches:
   - master
 script:
   - make test
+  - npm run tsc
 deploy:
   provider: npm
   email: dev@apiumhub.com
