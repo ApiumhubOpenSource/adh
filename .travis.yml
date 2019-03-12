@@ -8,9 +8,8 @@ branches:
 script:
   - make test-and-copy-dist
 
-before_deploy:
-  - cd dist
 deploy:
+  skip_cleanup: true
   provider: npm
   email: dev@apiumhub.com
   api_key:
