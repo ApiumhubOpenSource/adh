@@ -1,6 +1,6 @@
 {
   "name": "adh",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Apium docker helper: Useful and short commands for working with Docker.",
   "main": "index.js",
   "bin": {
