@@ -1,18 +1,13 @@
 language: nodejs
 
 services:
-- docker
+  - docker
 branches:
   only:
   - master
-before_script:
-  - npm install -g typescript
-  - npm install
-  - npm run tsc
 script:
-  - make test
-after_success:
-  - npm pack
+  - make test-and-copy-dist
+
 deploy:
   provider: npm
   email: dev@apiumhub.com
