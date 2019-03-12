@@ -8,6 +8,8 @@ branches:
 script:
   - make test-and-copy-dist
 
+before_deploy:
+  - cd dist
 deploy:
   provider: npm
   email: dev@apiumhub.com
