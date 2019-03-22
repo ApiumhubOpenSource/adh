@@ -15,35 +15,35 @@
   {
     "cli": "remove-containers",
     "alias": "rc",
-    "cmd": "docker ps -aq | awk '{print $1}' | if [ \"$(uname)\" == \"Linux\" ]; then xargs -I {} --no-run-if-empty docker rm -f {}; else xargs docker rm -f; fi",
+    "cmd": "docker ps -aq | if [ \"$(uname)\" == \"Linux\" ]; then xargs -I {} --no-run-if-empty docker rm -f {}; else xargs docker rm -f; fi",
     "description": "Remove all containers"
   },
   {
     "cli": "remove-images",
     "alias": "ri",
-    "cmd": "docker rmi -f $(docker images -q)",
+    "cmd": "docker images -q | if [ \"$(uname)\" == \"Linux\" ]; then xargs -I {} --no-run-if-empty docker rmi -f {}; else xargs docker rmi -f; fi",
     "description": "Remove all images"
   },
   {
     "cli": "remove-none-images",
-    "cmd": "docker rmi -f $(docker images --filter 'dangling=true')",
+    "cmd": "docker images -qf dangling=true | if [ \"$(uname)\" == \"Linux\" ]; then xargs -I {} --no-run-if-empty docker rmi -f {}; else xargs docker rmi -f; fi",
     "description": "Remove none images"
   },
   {
     "cli": "remove-exited-containers",
     "alias": "rec",
-    "cmd": "docker ps -q -f status=exited | if [ \"$(uname)\" == \"Linux\" ]; then xargs -I {} --no-run-if-empty docker rm -f {}; else xargs docker rm -f; fi",
+    "cmd": "docker ps -qf status=exited | if [ \"$(uname)\" == \"Linux\" ]; then xargs -I {} --no-run-if-empty docker rm -f {}; else xargs docker rm -f; fi",
     "description": "Remove exited containers"
   },
   {
     "cli": "remove-volumes",
-    "cmd": "docker volume rm $(docker volume ls -qf dangling=true)",
+    "cmd": "docker volume ls -qf dangling=true | if [ \"$(uname)\" == \"Linux\" ]; then xargs -I {} --no-run-if-empty docker volume rm {}; else xargs docker volume rm; fi",
     "description": "Remove all named volumes"
   },
   {
     "cli": "kill-containers",
     "alias": "kc",
-    "cmd": "docker kill $(docker ps -q)",
+    "cmd": "docker ps -q | if [ \"$(uname)\" == \"Linux\" ]; then xargs -I {} --no-run-if-empty docker kill {}; else xargs docker kill; fi",
     "description": "Kill all containers"
   },
   {

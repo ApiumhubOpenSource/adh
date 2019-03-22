@@ -9,7 +9,7 @@ setup () {
 	echo "setup end --"
 }
 
-@test "adh remove none images" {
+@test "adh remove none images is idempotent" {
 	run docker images --filter 'dangling=true'
 	actual_results
 	assert_there_are_results
@@ -18,14 +18,24 @@ setup () {
 	run docker images --filter 'dangling=true'
 	actual_results
 	assert_there_are_no_results
+
+	adh remove-none-images
+	run docker images --filter 'dangling=true'
+	actual_results
+	assert_there_are_no_results
 }
 
-@test "adh remove images" {
+@test "adh remove images is idempotent" {
 	docker pull nginx
 	docker pull registry:2
 	run docker images
 	actual_results
 	assert_there_are_results
+
+	adh remove-images
+	run docker images
+	actual_results
+	assert_there_are_no_results
 
 	adh remove-images
 	run docker images
