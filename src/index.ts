@@ -21,7 +21,7 @@ function loadHelpAndVersion(version, program) {
         program.help();
     });
     program.version(version);
-    program.on('help', program.help);
+    program.on('help', program.help());
     program.parse(process.argv);
 }
 
